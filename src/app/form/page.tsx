@@ -1,7 +1,7 @@
-import Form from "@/components/form/Form";
+import Forms from "@/components/form/Forms";
 
 const page = () => {
-  return <Form />;
+  return <Forms />;
 };
 
 export default page;
