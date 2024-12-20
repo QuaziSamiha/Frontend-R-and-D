@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Form1 from "./form1/Form1";
+import Form2 from "./form2/Form2";
 
 const SimpleForms = () => {
   return (
@@ -15,6 +16,7 @@ const SimpleForms = () => {
           Simple Forms
         </p>
         <Form1 />
+        <Form2 />
       </section>
     </>
   );

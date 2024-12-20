@@ -5,11 +5,17 @@ import React, { useState } from "react";
 
 interface IForm {
   firstName: string;
+  lastName: string;
+  email: string;
+  age: number | undefined;
 }
 const Form = () => {
   // ================== DECLARING ALL STATES =============
   const [formData, setFormData] = useState<IForm>({
     firstName: "",
+    lastName: "",
+    email: "",
+    age: undefined,
   });
   const [errors, setErrors] = useState<any>({});
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -21,7 +27,8 @@ const Form = () => {
     // console.log(name, " : ", value);
     setFormData({
       ...formData,
-      [name]: value,
+      //   [name]: value,
+      [name]: name === "age" ? Number(value) : value, // Ensure age is a number
     });
   };
 
@@ -32,15 +39,21 @@ const Form = () => {
     setErrors({});
     const newErrors: any = {};
 
+    // VALIDATION
     if (!formData.firstName) newErrors.firstName = "First name is required"; // SETTING ERROR MESSAGE
+    if (!formData.lastName) newErrors.lastName = "Last name is required"; // SETTING ERROR MESSAGE
+    if (!formData.email) newErrors.email = "Email is required"; // SETTING ERROR MESSAGE
+    if (formData.age === undefined || formData.age < 18) {
+      newErrors.age = "You must be at least 18 years old";
+    }
+
+    // IF ERROR OCCURS
     if (Object.keys(newErrors).length > 0) {
-      // IF ERROR OCCURS
       setErrors(newErrors);
       setIsSubmitting(false);
       return;
     }
 
-    alert(`First Name: ${formData.firstName}`);
     console.log(formData);
   };
 
@@ -50,15 +63,46 @@ const Form = () => {
         Add User
       </p>
       <form onSubmit={handleSubmit} className="flex flex-col gap-8">
-        <Input
-          labelText="First Name"
-          inputType="text"
-          fieldName="firstName"
-          placeholderText="Enter Your First Name..."
-          fieldValue={formData.firstName}
-          handleChange={handleChange}
-          errors={errors}
-        />
+        <div className="grid grid-cols-2 gap-10">
+          <Input
+            labelText="First Name"
+            inputType="text"
+            fieldName="firstName"
+            placeholderText="Enter Your First Name..."
+            fieldValue={formData.firstName}
+            handleChange={handleChange}
+            errors={errors}
+          />
+          <Input
+            labelText="Last Name"
+            inputType="text"
+            fieldName="lastName"
+            placeholderText="Enter Your Last Name..."
+            fieldValue={formData.lastName}
+            handleChange={handleChange}
+            errors={errors}
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-10">
+          <Input
+            labelText="Email"
+            inputType="email"
+            fieldName="email"
+            placeholderText="Enter Your Email Address..."
+            fieldValue={formData.email}
+            handleChange={handleChange}
+            errors={errors}
+          />
+          <Input
+            labelText="Age"
+            inputType="number"
+            fieldName="age"
+            placeholderText="Enter Your Age..."
+            fieldValue={formData.age}
+            handleChange={handleChange}
+            errors={errors}
+          />
+        </div>
         <SubmitButton submitTitle="Add User" />
       </form>
       {isSubmitting && (
