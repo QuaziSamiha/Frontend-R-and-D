@@ -17,7 +17,7 @@ interface IForm {
   gender: string;
 }
 
-const genderOptions = [
+const genderOptions: IOptions[] = [
   {
     value: "male",
     name: "Male",
@@ -71,6 +71,9 @@ const Form = () => {
     if (!formData.email) newErrors.email = "Email is required"; // SETTING ERROR MESSAGE
     if (formData.age === undefined || formData.age < 18) {
       newErrors.age = "You must be at least 18 years old";
+    }
+    if (!formData.gender) {
+      newErrors.gender = "Gender is required";
     }
 
     // IF ERROR OCCURS

@@ -35,7 +35,9 @@ const Select: React.FC<IProps> = ({
         onChange={handleChange}
         className="px-6 py-2 outline-none rounded-md bg-stone-50 text-slate-600 text-base placeholder:text-slate-400 placeholder:text-sm shadow-sm shadow-slate-200"
       >
-        <option>{placeholderText}</option>
+        <option value="" disabled>
+          {placeholderText}
+        </option>
         {options.map((option, index) => (
           <option key={index} value={option.value}>
             {option.name}
