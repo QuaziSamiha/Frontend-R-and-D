@@ -1,13 +1,13 @@
-import Loader from "@/components/ui/share/loader/Loader";
+import Loader from "@/components/share/loader/Loader";
+import { Metadata } from "next";
 import dynamic from "next/dynamic";
 
-const DynamicHome = dynamic(() => import("@/components/home/Home"), {
-  loading: () => <Loader />,
-});
-
-const HomePage = () => {
-  return <DynamicHome />;
+export const metadata: Metadata = {
+  title: "Buygenix | Home",
 };
-
-export default HomePage;
-
+export default function HomePage() {
+  const DynamicHome = dynamic(() => import("@/components/main/home/Home"), {
+    loading: () => <Loader />,
+  });
+  return <DynamicHome />;
+}

@@ -1,20 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IInitialState } from "./authTypes";
 
-// ~ I -> Interface
-interface IInitialState {
-    userInformation:{
-        id: string;
-        name: string;
-        email: string;
-        role: string;
-        routes: string[];
-        permissions: string[];
-    },
-    data: []
-}
 
 const initialState: IInitialState = {
-    userInformation:{
+    userInformation: {
         id: "",
         name: "",
         email: "",
@@ -22,23 +11,24 @@ const initialState: IInitialState = {
         routes: [],
         permissions: [],
     },
-    data: []
-}
+    data: [],
+};
+
 const authSlice = createSlice({
-    name:"auth",
+    name: "auth",
     initialState,
     reducers: {
         clearUserInformation: (state) => {
-            state.userInformation = initialState.userInformation
+            state.userInformation = initialState.userInformation;
         },
         setUserInformation: (state, action) => {
-            state.userInformation = { ...initialState.userInformation, ...action.payload }
+            state.userInformation = { ...initialState.userInformation, ...action.payload };
         },
         setData: (state, action) => {
-            state.data = {...initialState.data, ...action.payload}
-        }
-    }
-})
+            state.data = action.payload;
+        },
+    },
+});
 
-export const { setUserInformation, setData, clearUserInformation } = authSlice.actions
-export default authSlice.reducer
+export const { setUserInformation, setData, clearUserInformation } = authSlice.actions;
+export default authSlice.reducer;

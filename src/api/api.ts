@@ -1,23 +1,40 @@
-"use client";
-
 import axios from "axios";
+import { getBaseUrl } from "@/config/envConfig";
+import { axiosInstance } from "@/helpers/axios/axiosInstance";
 
-const api = axios.create({
-  baseURL: "https://api.freeapi.app/api/v1/",
-});
+const url = "https://jsonplaceholder.typicode.com";
 
-export const getAPI = async (endPoint: string, token?: string) => {
-  console.log(token);
-  const { data } = await api.get(endPoint);
-  return data?.data;
+
+
+export const getUsers = async () => {
+    try {
+        const response = await axios.get(`${url}/users`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching user data:", error);
+        return [];
+    }
 };
 
-export const postAPI = async (
-  endPoint: string,
-  payload: unknown,
-  token?: string
-) => {
-  console.log(token);
-  const { data } = await api.post(endPoint, payload);
-  return data;
+export const getUserAdmin = async () => {
+    try {
+        const response = await axiosInstance.get(`${getBaseUrl()}/users`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching user data:", error);
+        return [];
+    }
 };
+
+
+export const getData = async <T>(url: string): Promise<T> => {
+    try {
+        const response = await axios.get(url); // Using axios to fetch the data
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        throw new Error("Error fetching data"); // Re-throwing error to be handled by the calling component
+    }
+};
+
+

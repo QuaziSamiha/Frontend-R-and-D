@@ -5,9 +5,10 @@ import Link, { LinkProps } from "next/link";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IoMenu } from "react-icons/io5";
-import { RxCross2 } from "react-icons/rx";
-import { ILink } from "@/interfaces/dashboard";
+import { ILink } from "@/types/dashboard/dashboard.types";
 import { usePathname } from "next/navigation";
+
+import { CrossIcon } from "lucide-react";
 
 interface SidebarContextProps {
   open: boolean;
@@ -87,12 +88,12 @@ export const DesktopSidebar = ({
     <>
       <motion.div
         className={cn(
-          "h-full hidden  md:flex md:flex-col bg-white w-[300px] flex-shrink-0 z-50",
+          "h-full px-4 py-4 hidden  md:flex md:flex-col bg-whitePrimary w-[300px] flex-shrink-0",
+          // "h-full px-4 py-4 hidden  md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[300px] flex-shrink-0",
           className
         )}
         animate={{
-          // ============= MODIFIED WIDTH =======================
-          width: animate ? (open ? "340px" : "40px") : "250px",
+          width: animate ? (open ? "300px" : "60px") : "300px",
         }}
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
@@ -114,8 +115,7 @@ export const MobileSidebar = ({
     <>
       <div
         className={cn(
-          "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-gradient-to-br from-primary  to-cyan-500 w-full",
-          className
+          "h-10 px-4 py-4 flex flex-row md:hidden  items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full"
         )}
         {...props}
       >
@@ -136,7 +136,7 @@ export const MobileSidebar = ({
                 ease: "easeInOut",
               }}
               className={cn(
-                "fixed h-full w-full inset-0 bg-gradient-to-br from-primary  to-cyan-500 p-10 z-[100] flex flex-col justify-between",
+                "fixed h-full w-full inset-0 bg-white dark:bg-neutral-900 p-10 z-[100] flex flex-col justify-between",
                 className
               )}
             >
@@ -144,7 +144,8 @@ export const MobileSidebar = ({
                 className="absolute right-10 top-10 z-50 text-neutral-800 dark:text-neutral-200"
                 onClick={() => setOpen(!open)}
               >
-                <RxCross2 />
+                {/* <IconX /> */}
+                <CrossIcon />
               </div>
               {children}
             </motion.div>
@@ -164,24 +165,25 @@ export const SidebarLink = ({
   className?: string;
   props?: LinkProps;
 }) => {
-  const pathname = usePathname();
   const { open, animate } = useSidebar();
-  // console.log("path name:", pathname);
+  const pathname = usePathname();
   const IconComponent = link.icon;
   return (
     <Link
       href={link.href}
       className={cn(
-        `flex items-center justify-start gap-2 group/sidebar py-2`,
+        "flex items-center justify-start gap-2 group/sidebar py-2.5 ",
         className
       )}
       {...props}
     >
       <IconComponent
-        className={`${
-          pathname === link.href ? "font-semibold text-violetQuaternary" : "text-ashSecondary"
-        } flex-shrink-0`}
         fontSize={24}
+        className={`${
+          pathname === link.href
+            ? `${open ? "text-darkBlue" : "text-darkBlue"}`
+            : "text-blackSecondary"
+        } flex-shrink-0`}
       />
 
       <motion.span
@@ -191,9 +193,9 @@ export const SidebarLink = ({
         }}
         className={`${
           pathname === link.href
-            ? "font-semibold text-violetQuaternary"
-            : "text-ashSecondary"
-        } text-base group-hover/sidebar:translate-x-1 transition duration-150 text-nowrap whitespace-pre inline-block !p-0 !m-0`}
+            ? "text-darkBlue font-semibold"
+            : "text-blackSecondary"
+        }  dark:text-neutral-200 text-base group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0`}
       >
         {link.label}
       </motion.span>
