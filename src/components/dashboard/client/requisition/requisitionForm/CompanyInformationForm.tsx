@@ -1,3 +1,5 @@
+"use client";
+
 import { SelectField } from "@/components/share/form";
 import DateInput from "@/components/share/form/DateInput";
 import InputField from "@/components/share/form/InputField";
@@ -38,20 +40,18 @@ const priorities: ISelectOption[] = [
 export default function CompanyInformationForm() {
   // ================= REACT HOOK FORM METHODS =============
   const {
-    register,
     control,
     setValue,
+    trigger,
     formState: { errors },
   } = useFormContext();
-  
+
   return (
-    <div className="grid grid-cols-2 gap-6">
+    <div className="grid max-md:grid-cols-1 grid-cols-2 gap-6">
       <InputField
         labelName="Company"
         placeholderText="Enter company"
         name="companyName"
-        register={register}
-        errors={errors}
         defaultValue={"Drug International Ltd."}
         disabled
       />
@@ -60,6 +60,7 @@ export default function CompanyInformationForm() {
         placeholderText="Select concern from here"
         name="concern"
         control={control}
+        trigger={trigger}
         data={allConcern}
         labelKey="label"
         valueKey="value"
@@ -75,6 +76,7 @@ export default function CompanyInformationForm() {
         errors={errors}
         control={control}
         setValue={setValue}
+        trigger={trigger}
         isRequired
         requiredMessage="Survey Date is required."
       />
@@ -83,6 +85,7 @@ export default function CompanyInformationForm() {
         placeholderText="Select item's priority"
         name="priority"
         control={control}
+        trigger={trigger}
         data={priorities}
         labelKey="label"
         valueKey="value"

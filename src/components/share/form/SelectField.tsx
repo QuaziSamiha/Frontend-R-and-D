@@ -14,7 +14,7 @@ const SelectField = <T extends FieldValues>({
   placeholderText,
   name,
   control,
-  // errors,
+  trigger,
   data,
   labelKey,
   valueKey,
@@ -25,8 +25,6 @@ const SelectField = <T extends FieldValues>({
   makeDisable = false,
   requiredMessage = "Select an option",
 }: ISelectField<T>) => {
-  // console.log(errors);
-  // console.log(requiredMessage);
   return (
     <div className="flex flex-col gap-3 w-full">
       <label className="text-blackSecondary text-base font-medium pl-2">
@@ -52,6 +50,7 @@ const SelectField = <T extends FieldValues>({
                   onValueChange={(value) => {
                     field.onChange(value);
                     if (onChange) onChange(value);
+                    trigger(name as Path<T>);
                   }}
                   disabled={makeDisable}
                 >
@@ -65,7 +64,7 @@ const SelectField = <T extends FieldValues>({
                   <SelectContent>
                     {data?.map((item, index: number) => (
                       <SelectItem
-                        key={index}
+                        key={index + 1}
                         value={item[valueKey as keyof ISelectOption] as string}
                         className="cursor-pointer"
                       >
@@ -82,12 +81,6 @@ const SelectField = <T extends FieldValues>({
               </>
             )}
           />
-          {/* {errors?.[name] && (
-            <p className="text-red-500 text-sm pl-2">
-              {typeof errors?.[name]?.message === "string" &&
-                errors?.[name]?.message}
-            </p>
-          )} */}
         </div>
       )}
     </div>

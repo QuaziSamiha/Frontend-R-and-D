@@ -7,6 +7,7 @@ import {
   FieldErrors,
   UseFormSetValue,
   Path,
+  UseFormTrigger,
 } from "react-hook-form";
 import { IconType } from "react-icons/lib";
 
@@ -27,10 +28,8 @@ export interface IInput<
   IconComponent?: IconType | undefined;
   placeholderText: string;
   name: Path<T>;
-  // name: keyof T;
-  register: UseFormRegister<T>;
-  errors?: FieldErrors<T>;
   control?: Control<T>;
+  trigger?: UseFormTrigger<T>;
   disabled?: boolean;
   isRequired?: boolean;
   defaultValue?: Type extends "number" ? number : string;
@@ -135,6 +134,7 @@ export interface IDateInput<T extends FieldValues> {
   errors: FieldErrors<T>;
   control: Control<T>;
   setValue: UseFormSetValue<T>;
+  trigger: UseFormTrigger<T>;
   isRequired?: boolean;
   dateFormat?: string;
   disabled?: boolean;
@@ -142,18 +142,44 @@ export interface IDateInput<T extends FieldValues> {
   requiredMessage?: string;
 }
 
+export interface ITextEditor<T extends FieldValues> {
+  labelName?: string;
+  inputType?: string;
+  placeholderText: string;
+  name: Path<T>;
+  control: Control<T>;
+  trigger?: UseFormTrigger<T>;
+  disabled?: boolean;
+  isRequired?: boolean;
+  defaultValue?: string;
+  requiredMessage?: string;
+}
 export interface ITextArea<T extends FieldValues> {
   labelName?: string;
   inputType?: string;
   placeholderText: string;
   rowNo?: number;
-  name: keyof T;
-  register: UseFormRegister<T>;
-  errors?: FieldErrors<T>;
+  name: Path<T>;
+  control: Control<T>;
+  trigger?: UseFormTrigger<T>;
   disabled?: boolean;
   isRequired?: boolean;
   defaultValue?: string;
+  requiredMessage?: string;
 }
+
+// export interface ITextArea<T extends FieldValues> {
+//   labelName?: string;
+//   inputType?: string;
+//   placeholderText: string;
+//   rowNo?: number;
+//   name: keyof T;
+//   register: UseFormRegister<T>;
+//   errors?: FieldErrors<T>;
+//   disabled?: boolean;
+//   isRequired?: boolean;
+//   defaultValue?: string;
+// }
 
 export interface ISelectOption {
   id: number | string;
@@ -168,6 +194,7 @@ export interface ISelectField<T extends FieldValues> {
   // name: keyof T;
   control?: Control<T>;
   errors?: FieldErrors<T>;
+  trigger: UseFormTrigger<T>;
   data?: ISelectOption[];
   labelKey: "label";
   valueKey: "value";

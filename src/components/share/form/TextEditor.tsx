@@ -1,19 +1,33 @@
-import { Textarea } from "@/components/ui/textarea";
-import { ITextArea } from "@/types/form/form.types";
+import { ITextEditor } from "@/types/form/form.types";
+import { useState } from "react";
 import { FieldValues, Path, PathValue, useController } from "react-hook-form";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
+// import "./style.css";
 
-const TextArea = <T extends FieldValues>({
+const modules = {
+  toolbar: [
+    [{ size: [] }],
+    ["bold", "underline"],
+    // [{ list: "ordered" }, { list: "bullet" }],
+  ],
+};
+
+const formats = ["size", "bold", "underline", "list"];
+
+export default function TextEditor<T extends FieldValues>({
   labelName,
   placeholderText,
   name,
   control,
   trigger,
-  rowNo = 6,
   isRequired,
   disabled,
   defaultValue,
   requiredMessage = "This field is required.",
-}: ITextArea<T>) => {
+}: ITextEditor<T>) {
+  const [value, setValue] = useState<string>(defaultValue || "");
+
   const { field, fieldState } = useController<T>({
     name: name as Path<T>,
     control,
@@ -21,8 +35,9 @@ const TextArea = <T extends FieldValues>({
     defaultValue: defaultValue as PathValue<T, Path<T>>,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    field.onChange(e.target.value);
+  const handleChange = (content: string) => {
+    setValue(content);
+    field.onChange(content);
     if (trigger) {
       trigger(field.name);
     }
@@ -36,16 +51,15 @@ const TextArea = <T extends FieldValues>({
           <span className="text-red-500 px-0.5">*</span>
         )}{" "}
       </label>
-
-      <Textarea
-        id={String(name)}
-        placeholder={placeholderText}
-        disabled={disabled}
-        name={field.name}
-        value={field.value ?? ""}
+      <ReactQuill
+        theme="snow"
+        value={value}
         onChange={handleChange}
-        rows={rowNo}
-        className={`w-full border rounded-md p-2 bg-whiteSecondary resize-none`}
+        modules={modules}
+        formats={formats}
+        placeholder={placeholderText}
+        className="overflow-hidden break-words"
+        // className="border border-red-500 rounded-md bg-whiteSecondary resize-none text-editor"
       />
       {fieldState?.error && !disabled && (
         <p className="text-red-500 text-sm pl-2 -mt-1">
@@ -54,6 +68,4 @@ const TextArea = <T extends FieldValues>({
       )}
     </div>
   );
-};
-
-export default TextArea;
+}

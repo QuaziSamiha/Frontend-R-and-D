@@ -4,12 +4,15 @@ import dynamic from "next/dynamic";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: "Buygenix | Requisition Form",
+  title: "Frontend | Requisition Form",
 };
 export default function RequisitionFormPage() {
   const DynamicRequisitionForm = dynamic(
     () =>
-      import("@/components/dashboard/client/requisitionForm/RequisitionForm"),
+      import(
+        "@/components/dashboard/client/requisition/requisitionForm/RequisitionForm"
+      ),
+    // import("@/components/dashboard/client/requisitionForm/RequisitionForm"),
     { loading: () => <Loader /> }
   );
   return <DynamicRequisitionForm />;

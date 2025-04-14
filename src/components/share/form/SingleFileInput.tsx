@@ -61,11 +61,11 @@ export default function SingleFileInput<T extends FieldValues>({
                 </div>
               </div>
               {/* Selected Files List */}
-              <div className="h-full w-[40%] flex flex-col gap-2">
+              <div className="h-full w-[44%] flex flex-col gap-2">
                 {selectedFiles.map((file, index) => (
                   <div
                     key={index}
-                    className="relative border border-greyAltPrimary rounded-md p-2 w-full"
+                    className="relative border border-greyAltPrimary rounded-md p-2 w-full overflow-y-auto overflow-x-hidden scroll-smooth scrollbar"
                   >
                     <div className="flex items-center justify-start gap-4">
                       <LuFiles size={50} className="text-lightAltBlue" />

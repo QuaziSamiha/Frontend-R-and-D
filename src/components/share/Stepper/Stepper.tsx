@@ -22,7 +22,6 @@ export default function Stepper({
   onNextStep,
   children,
 }: IStepperProps) {
-
   const handlePrevious = () => {
     const currentIndex = steps.indexOf(currentStep);
     if (currentIndex > 0) {
@@ -114,7 +113,8 @@ export default function Stepper({
 
         {steps.indexOf(currentStep) !== steps.length - 1 && (
           <button
-            type="button"
+            type="submit"
+            // type="button"
             onClick={onNextStep}
             className="flex items-center px-6 py-2.5 bg-lightAltBlue text-white rounded-md hover:bg-white hover:text-lightAltBlue hover:border hover:border-lightAltBlue cursor-pointer"
           >

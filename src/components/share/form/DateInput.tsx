@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Controller, FieldValues, Path, PathValue } from "react-hook-form";
 import { IDateInput } from "@/types/form/form.types";
+// ======== IMPORTING SHADCN UI COMPONENTS ============
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -20,6 +21,7 @@ const DateInput = <T extends FieldValues>({
   errors,
   dateFormat = "dd MMM, yy",
   setValue,
+  trigger,
   isRequired,
   disabled,
   defaultValue,
@@ -32,8 +34,10 @@ const DateInput = <T extends FieldValues>({
       setDate(selectedDate);
       setValue(
         name as Path<T>,
-        formattedDate as unknown as PathValue<T, Path<T>>
+        formattedDate as unknown as PathValue<T, Path<T>>,
+        { shouldValidate: true }
       );
+      trigger(name as Path<T>);
     }
   };
   return (
@@ -71,7 +75,7 @@ const DateInput = <T extends FieldValues>({
                   )}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto bg-whiteSecondary pointer-events-auto z-[9999]">
+              <PopoverContent className="w-auto bg-whiteSecondary pointer-events-auto">
                 <Calendar
                   mode="single"
                   selected={field.value}
