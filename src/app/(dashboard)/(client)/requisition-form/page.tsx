@@ -12,7 +12,6 @@ export default function RequisitionFormPage() {
       import(
         "@/components/dashboard/client/requisition/requisitionForm/RequisitionForm"
       ),
-    // import("@/components/dashboard/client/requisitionForm/RequisitionForm"),
     { loading: () => <Loader /> }
   );
   return <DynamicRequisitionForm />;

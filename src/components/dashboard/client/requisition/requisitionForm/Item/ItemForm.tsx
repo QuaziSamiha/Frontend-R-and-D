@@ -55,7 +55,7 @@ export default function ItemForm({ index }: IProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="grid max-md:grid-cols-1 grid-cols-3 gap-6 w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-1 gap-6 w-full">
         <InputField
           labelName="Name"
           placeholderText="Enter item name"

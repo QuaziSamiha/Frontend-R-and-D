@@ -71,8 +71,8 @@ export default function ViewRequisition() {
                         Item {index + 1}
                       </p>
                       <div className="flex flex-col gap-3">
-                        <div className="grid max-lg:grid-cols-1 grid-cols-4 gap-6">
-                          <div className="col-span-2">
+                        <div className="grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-1 gap-3 lg:gap-6 xl:gap-3 ">
+                          <div className="col-span-1 lg:col-span-2 xl:col-span-1 ">
                             <ViewCard
                               condition={item?.itemName}
                               title="Item's Name"
@@ -99,7 +99,7 @@ export default function ViewRequisition() {
                             )}
                           </p>
                         </div>
-                    
+
                         <div className="flex items-start">
                           {item?.itemDescription && (
                             <span className="text-greyPrimary">

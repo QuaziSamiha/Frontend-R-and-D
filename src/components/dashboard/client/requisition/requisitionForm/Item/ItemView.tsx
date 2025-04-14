@@ -28,8 +28,8 @@ export default function ItemView({ index }: IProps) {
   };
   return (
     <div className="flex flex-col gap-3">
-      <div className="grid max-lg:grid-cols-1 grid-cols-4 gap-3 w-[600px]">
-        <div className="col-span-2">
+      <div className="grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-1 gap-3 md:w-[600px]">
+        <div className="col-span-1 lg:col-span-2 xl:col-span-1">
           <span className="text-greyPrimary">Name:</span>
           <span className="text-blackSecondary pl-1 font-medium">
             {item?.itemName}

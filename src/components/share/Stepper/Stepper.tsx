@@ -31,8 +31,8 @@ export default function Stepper({
 
   return (
     <div>
-      <div className="w-1/2 px-12">
-        <div className="relative mb-12 max-w-5xl">
+      <div className="w-full">
+        <div className="relative mb-12">
           {/* =======  STEPPER LINE ====== */}
           {/* ===== GREY STATIC LINE ==== */}
           <div className="absolute top-1/2 w-full h-0.5 bg-greyAltPrimary -translate-y-1/2" />
@@ -81,7 +81,7 @@ export default function Stepper({
       <div>{children}</div>
 
       {/* ============ THREE DOTS =============== */}
-      <div className="flex justify-center space-x-2 max-w-5xl mt-8">
+      {/* <div className="w-1/2 flex justify-center space-x-2 mt-8">
         <div className="flex space-x-1">
           {steps.map((step, index) => (
             <div
@@ -94,9 +94,10 @@ export default function Stepper({
             />
           ))}
         </div>
-      </div>
+      </div> */}
       {/* ============== BUTTONS =========== */}
-      <div className="flex justify-between mt-12 max-w-5xl px-12">
+      <div className="flex justify-between mt-12 w-full">
+        {/* <div className="flex justify-between mt-12 w-1/2 px-12"> */}
         <button
           type="button"
           onClick={handlePrevious}
@@ -113,10 +114,8 @@ export default function Stepper({
 
         {steps.indexOf(currentStep) !== steps.length - 1 && (
           <button
-            type="submit"
-            // type="button"
             onClick={onNextStep}
-            className="flex items-center px-6 py-2.5 bg-lightAltBlue text-white rounded-md hover:bg-white hover:text-lightAltBlue hover:border hover:border-lightAltBlue cursor-pointer"
+            className="flex items-center px-6 py-2.5 border border-lightAltBlue bg-lightAltBlue text-white rounded-md hover:bg-white hover:text-lightAltBlue hover:border hover:border-lightAltBlue cursor-pointer"
           >
             Next
             <ChevronRight size={20} className="ml-2" />

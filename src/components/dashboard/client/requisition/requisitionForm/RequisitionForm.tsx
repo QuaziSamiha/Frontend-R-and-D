@@ -12,7 +12,7 @@ import Stepper from "../../../../share/Stepper/Stepper";
 import SubmitButton from "@/components/share/form/SubmitButton";
 import CompanyInformationForm from "./CompanyInformationForm";
 import ItemInformationForm from "./Item/ItemInformationForm";
-// import ViewRequisition from "../ViewRequisition/ViewRequisition";
+import ViewRequisition from "../ViewRequisition/ViewRequisition";
 
 // ================= STEPPER STEPS DEFINITION ==================
 type TStep = "company" | "item" | "document";
@@ -59,21 +59,8 @@ export default function RequisitionForm() {
     const currentFields = methods.getValues().items || [];
 
     if (currentStep === "company") {
-      console.log("this is company");
       isValid = await trigger(["surveyDate", "priority"]);
     } else if (currentStep === "item") {
-      console.log("this is item");
-      // // Validate ALL items, not just the first one
-      // isValid = true; // Start assuming valid
-      // for (let i = 0; i < fields.length; i++) {
-      //   console.log("this is item", i);
-      //   const itemValid = await trigger([
-      //     `items.${i}.itemName`,
-      //     `items.${i}.uom`,
-      //   ]);
-      //   if (!itemValid) isValid = false;
-      // }
-
       const validationResults = await Promise.all(
         currentFields.map((_, index) =>
           trigger([`items.${index}.itemName`, `items.${index}.uom`])
@@ -101,22 +88,13 @@ export default function RequisitionForm() {
 
   const { handleSubmit, control, trigger } = methods;
 
-  const { fields } = useFieldArray({
+  const {} = useFieldArray({
     control,
     name: "items",
   });
 
   // =============== SUBMIT FUNCTIONALITY =============
   const onSubmit: SubmitHandler<IFormData> = async (data) => {
-    // const isValid = await trigger();
-    // if (!isValid) return;
-    // Validate entire form
-    const isValid = await trigger(undefined, { shouldFocus: true });
-
-    if (!isValid) {
-      console.error("Form validation failed");
-      return;
-    }
     console.log(data);
   };
 
@@ -138,7 +116,7 @@ export default function RequisitionForm() {
         <FormProvider {...methods}>
           <div className="flex max-xl:flex-col items-start gap-6">
             {/* =================== LEFT SIDE (FORM PART) =============== */}
-            <div className="basis-1/2 max-xl:w-full max-md:px-6 px-12">
+            <div className="max-xl:w-full w-1/2 max-md:px-6 px-12">
               {/* ==================== STEPPER PARTS =================== */}
               <div className="relative">
                 <Stepper
@@ -185,8 +163,8 @@ export default function RequisitionForm() {
               </div>
             </div>
             {/* ================= RIGHT SIDE (VIEW PART) ============== */}
-            <div className="basis-1/2 max-xl:w-full max-md:px-6 px-12">
-              {/* <ViewRequisition /> */}
+            <div className="max-xl:w-full w-1/2 max-md:px-6 px-12">
+              <ViewRequisition />
             </div>
           </div>
         </FormProvider>
@@ -194,30 +172,3 @@ export default function RequisitionForm() {
     </div>
   );
 }
-
-// const handleNextStep = async () => {
-//   let isValid = false;
-
-//   if (currentStep === "company") {
-//     isValid = await trigger([
-//       "companyName",
-//       "concern",
-//       "surveyDate",
-//       "priority",
-//     ]);
-//   } else if (currentStep === "item") {
-//     const isItemsValid = await Promise.all(
-//       fields.map((_, index) =>
-//         trigger([`items.${index}.itemName`, `items.${index}.uom`])
-//       )
-//     );
-//     isValid = isItemsValid.every((valid) => valid === true);
-//   } else if (currentStep === "document") {
-//     isValid = await trigger(["attachments"]);
-//   }
-
-//   if (isValid) {
-//     const currentIndex = steps.indexOf(currentStep);
-//     setCurrentStep(steps[currentIndex + 1]);
-//   }
-// };
