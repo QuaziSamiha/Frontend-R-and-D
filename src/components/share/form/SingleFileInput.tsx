@@ -1,8 +1,8 @@
 "use client";
 
 import { ISingleFileInput } from "@/types/form/form.types";
-import { useState } from "react";
-import { Controller, FieldValues } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { Controller, FieldValues, useFormContext } from "react-hook-form";
 import { FaFileUpload } from "react-icons/fa";
 import { LuFiles } from "react-icons/lu";
 import { RxCross2 } from "react-icons/rx";
@@ -15,7 +15,14 @@ export default function SingleFileInput<T extends FieldValues>({
   acceptFileType = "image/*",
 }: ISingleFileInput<T>) {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const { getValues } = useFormContext();
 
+  useEffect(() => {
+    const formValue = getValues(name);
+    if (formValue && Array.isArray(formValue)) {
+      setSelectedFiles(formValue);
+    }
+  }, [name, getValues]);
   return (
     <div className="h-full flex flex-col gap-2 relative">
       <label className="text-blackSecondary text-base font-medium pl-2">
