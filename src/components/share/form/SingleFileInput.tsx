@@ -6,6 +6,7 @@ import { Controller, FieldValues, useFormContext } from "react-hook-form";
 import { FaFileUpload } from "react-icons/fa";
 import { LuFiles } from "react-icons/lu";
 import { RxCross2 } from "react-icons/rx";
+import { toast } from "react-toastify";
 
 export default function SingleFileInput<T extends FieldValues>({
   label,
@@ -16,6 +17,7 @@ export default function SingleFileInput<T extends FieldValues>({
 }: ISingleFileInput<T>) {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const { getValues } = useFormContext();
+  const MAX_FILE_SIZE = 4 * 1024 * 1024; // 4MB in bytes
 
   useEffect(() => {
     const formValue = getValues(name);
@@ -52,6 +54,10 @@ export default function SingleFileInput<T extends FieldValues>({
                       onChange={(e) => {
                         if (e.target.files && e.target.files.length > 0) {
                           const newFile = e.target.files[0];
+                          if (newFile.size > MAX_FILE_SIZE) {
+                            toast.error("File size exceeds 4MB limit");
+                            return; // Don't proceed with the upload
+                          }
                           setSelectedFiles((prev) => [...prev, newFile]);
                           onChange([...selectedFiles, newFile]);
                         }

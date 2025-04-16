@@ -76,29 +76,68 @@ export default function ItemInformationForm() {
             key={index}
             className="flex max-lg:flex-col items-start gap-4 w-full"
           >
-            <div className="border border-greySecondary max-md:px-3 px-10 py-8 rounded-md w-full">
-              {showForm ? (
-                <ItemForm index={index} />
-              ) : (
-                <ItemView index={index} />
-              )}
+            <div className="border border-greySecondary rounded-md max-md:px-3 px-10 py-6 w-full">
+              <div className="flex justify-end gap-2">
+                <div>
+                  {!showForm ? (
+                    <div className="">
+                      <div className="group">
+                        <button
+                          type="button"
+                          onClick={() => handleEditItem(index)}
+                          className="border border-greyAltPrimary hover:border-greenPrimary hover:bg-greenPrimary p-2.5 rounded cursor-pointer"
+                        >
+                          <FaRegEdit
+                            size={20}
+                            className="text-greyPrimary group-hover:text-white"
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    editingIndex === index && (
+                      <div className="group">
+                        <button
+                          type="button"
+                          onClick={() => handleSaveItem(index)}
+                          className="border border-greyAltPrimary hover:border-bluePrimary hover:bg-white p-1.5 rounded-md cursor-pointer"
+                        >
+                          <FcOk
+                            size={30}
+                            className="group-hover:text-darkBlue text-darkBlue bg-transparent"
+                          />
+                        </button>
+                      </div>
+                    )
+                  )}
+                </div>
+                {fields.length > 1 && (
+                  <div className="group">
+                    <button
+                      type="button"
+                      onClick={() => remove(index)}
+                      disabled={fields.length === 1}
+                      className={`border border-greyAltPrimary hover:border-red-500 hover:bg-red-500 p-1 rounded cursor-pointer disabled:cursor-not-allowed`}
+                    >
+                      <MdDeleteForever
+                        size={30}
+                        className="text-greyPrimary group-hover:text-white"
+                      />
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div className="">
+                {showForm ? (
+                  <ItemForm index={index} />
+                ) : (
+                  <ItemView index={index} />
+                )}
+              </div>
             </div>
-
+            {/* 
             {!showForm ? (
               <div className="flex lg:flex-col gap-2">
-                <div className="group">
-                  <button
-                    type="button"
-                    onClick={() => remove(index)}
-                    disabled={fields.length === 1}
-                    className={`border border-greyAltPrimary hover:border-red-500 hover:bg-red-500 p-1 rounded-md cursor-pointer disabled:cursor-not-allowed`}
-                  >
-                    <MdDeleteForever
-                      size={30}
-                      className="text-greyPrimary group-hover:text-white"
-                    />
-                  </button>
-                </div>
                 <div className="group">
                   <button
                     type="button"
@@ -127,7 +166,7 @@ export default function ItemInformationForm() {
                   </button>
                 </div>
               )
-            )}
+            )} */}
           </div>
         );
       })}

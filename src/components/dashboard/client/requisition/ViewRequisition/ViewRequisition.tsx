@@ -67,58 +67,62 @@ export default function ViewRequisition() {
                 <div key={index} className="my-6">
                   {items.length > 1 && (
                     <div className="flex flex-col gap-2">
-                      <p className="text-blackSecondary text-lg font-medium border-b border-greySecondary pb-1">
-                        Item {index + 1}
-                      </p>
-                      <div className="flex flex-col gap-3">
-                        <div className="grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-1 gap-3 lg:gap-6 xl:gap-3 ">
-                          <div className="col-span-1 lg:col-span-2 xl:col-span-1 ">
+                      {item?.itemName && (
+                        <p className="text-blackSecondary text-lg font-medium border-b border-greySecondary pb-1">
+                          Item {index + 1}
+                        </p>
+                      )}
+                      {item?.itemName && (
+                        <div className="flex flex-col gap-3">
+                          <div className="grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-1 gap-3 lg:gap-6 xl:gap-3 ">
+                            <div className="col-span-1 lg:col-span-2 xl:col-span-1 ">
+                              <ViewCard
+                                condition={item?.itemName}
+                                title="Item's Name"
+                                content={item.itemName}
+                              />
+                            </div>
+
                             <ViewCard
-                              condition={item?.itemName}
-                              title="Item's Name"
-                              content={item.itemName}
+                              condition={item?.uom}
+                              title="Item's UOM"
+                              content={item?.uom}
                             />
+
+                            <p>
+                              {item?.itemName && (
+                                <span className="text-greyPrimary">
+                                  Item&apos;s Quantity:
+                                </span>
+                              )}
+                              {item?.itemName && (
+                                <span className="text-blackSecondary pl-1 font-medium">
+                                  {item?.quantity}
+                                </span>
+                              )}
+                            </p>
+                          </div>
+
+                          <div className="flex items-start">
+                            {item?.itemName && (
+                              <span className="text-greyPrimary">
+                                Item&apos;s Description:
+                              </span>
+                            )}
+                            {item?.itemDescription && (
+                              <span className="text-blackSecondary pl-1">
+                                {renderHtmlContent(item.itemDescription)}
+                              </span>
+                            )}
                           </div>
 
                           <ViewCard
-                            condition={item?.uom}
-                            title="Item's UOM"
-                            content={item?.uom}
+                            condition={item?.remark}
+                            title="Item's Remark"
+                            content={item?.remark}
                           />
-
-                          <p>
-                            {item?.itemName && (
-                              <span className="text-greyPrimary">
-                                Item&apos;s Quantity:
-                              </span>
-                            )}
-                            {item?.itemName && (
-                              <span className="text-blackSecondary pl-1 font-medium">
-                                {item?.quantity}
-                              </span>
-                            )}
-                          </p>
                         </div>
-
-                        <div className="flex items-start">
-                          {item?.itemDescription && (
-                            <span className="text-greyPrimary">
-                              Item&apos;s Description:
-                            </span>
-                          )}
-                          {item?.itemDescription && (
-                            <span className="text-blackSecondary pl-1">
-                              {renderHtmlContent(item.itemDescription)}
-                            </span>
-                          )}
-                        </div>
-
-                        <ViewCard
-                          condition={item?.remark}
-                          title="Item's Remark"
-                          content={item?.remark}
-                        />
-                      </div>
+                      )}
                     </div>
                   )}
                 </div>
