@@ -17,16 +17,16 @@ const allUOM: ISelectOption[] = [
     value: "piece",
     label: "Piece",
   },
-  {
-    id: 2,
-    value: "kg",
-    label: "Kilogram",
-  },
-  {
-    id: 3,
-    value: "litre",
-    label: "Litre",
-  },
+  // {
+  //   id: 2,
+  //   value: "kg",
+  //   label: "Kilogram",
+  // },
+  // {
+  //   id: 3,
+  //   value: "litre",
+  //   label: "Litre",
+  // },
   {
     id: 4,
     value: "box",

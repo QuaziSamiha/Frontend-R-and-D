@@ -65,7 +65,7 @@ export default function ViewRequisition() {
             {items?.map((item: IItem, index: number) => {
               return (
                 <div key={index} className="my-6">
-                  {items.length > 1 && (
+                  {items.length > 0 && (
                     <div className="flex flex-col gap-2">
                       {item?.itemName && (
                         <p className="text-blackSecondary text-lg font-medium border-b border-greySecondary pb-1">

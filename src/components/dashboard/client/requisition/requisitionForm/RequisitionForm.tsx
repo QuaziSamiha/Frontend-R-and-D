@@ -54,6 +54,22 @@ export default function RequisitionForm() {
     }
   };
 
+  // ============ REACT HOOK FORM METHODS =========
+  const methods = useForm<IFormData>({
+    defaultValues: {
+      companyName: "Drug International Ltd.",
+      items: [{ quantity: 1 }], // ======= TO SHOW AN ITEM FORM INITIALLY =========
+    },
+    mode: "onChange",
+  });
+
+  const { handleSubmit, control, trigger } = methods;
+
+  const {} = useFieldArray({
+    control,
+    name: "items",
+  });
+
   const handleNextStep = async () => {
     let isValid = false;
     const currentFields = methods.getValues().items || [];
@@ -76,22 +92,6 @@ export default function RequisitionForm() {
       }
     }
   };
-
-  // ============ REACT HOOK FORM METHODS =========
-  const methods = useForm<IFormData>({
-    defaultValues: {
-      companyName: "Drug International Ltd.",
-      items: [{ quantity: 1 }], // ======= TO SHOW AN ITEM FORM INITIALLY =========
-    },
-    mode: "onChange",
-  });
-
-  const { handleSubmit, control, trigger } = methods;
-
-  const {} = useFieldArray({
-    control,
-    name: "items",
-  });
 
   // =============== SUBMIT FUNCTIONALITY =============
   const onSubmit: SubmitHandler<IFormData> = async (data) => {

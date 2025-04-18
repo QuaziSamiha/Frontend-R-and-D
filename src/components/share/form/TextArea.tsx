@@ -8,7 +8,7 @@ const TextArea = <T extends FieldValues>({
   name,
   control,
   trigger,
-  rowNo = 6,
+  rowNo = 3,
   isRequired,
   disabled,
   defaultValue,

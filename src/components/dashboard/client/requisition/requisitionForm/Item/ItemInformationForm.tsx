@@ -5,9 +5,9 @@ import ItemView from "./ItemView";
 import { MdDeleteForever } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
-import { useState } from "react";
 import ItemForm from "./ItemForm";
 import { FcOk } from "react-icons/fc";
+import { useState } from "react";
 
 export default function ItemInformationForm() {
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
@@ -46,11 +46,18 @@ export default function ItemInformationForm() {
   };
 
   //   ============= ITEM EDIT FUNCTION ========
-  const handleEditItem = (index: number) => {
-    setEditingIndex(index);
+  const handleEditItem = async (index: number) => {
+    // ======= FIRST EDIT THE CURRENT FORM BEFORE ALLOWING EDIT ======
+    const isValid = await trigger([
+      `items.${fields.length - 1}.itemName`,
+      `items.${fields.length - 1}.uom`,
+    ]);
+
+    if (isValid) {
+      setEditingIndex(index);
+    }
   };
 
-  //   =============== EDIT ITEM SAVE FUNCTION =============
   const handleSaveItem = async (index: number) => {
     const isValid = await trigger([
       `items.${index}.itemName`,
@@ -60,6 +67,14 @@ export default function ItemInformationForm() {
     if (isValid) {
       setEditingIndex(null);
     }
+  };
+
+  const handleDeleteItem = async (index: number) => {
+    // ===== IF THE ITEM BEING DELETED IS THE ONE IN EDIT MODE ======
+    if (editingIndex === index) {
+      setEditingIndex(null); // ==== EXIT EDIT MODE FIRST ===
+    }
+    remove(index); // === THEN REMOVE THE ITEM ====
   };
 
   return (
@@ -73,7 +88,7 @@ export default function ItemInformationForm() {
 
         return (
           <div
-            key={index}
+            key={field.id}
             className="flex max-lg:flex-col items-start gap-4 w-full"
           >
             <div className="border border-greySecondary rounded-md max-md:px-3 px-10 py-6 w-full">
@@ -115,7 +130,7 @@ export default function ItemInformationForm() {
                   <div className="group">
                     <button
                       type="button"
-                      onClick={() => remove(index)}
+                      onClick={() => handleDeleteItem(index)}
                       disabled={fields.length === 1}
                       className={`border border-greyAltPrimary hover:border-red-500 hover:bg-red-500 p-1 rounded cursor-pointer disabled:cursor-not-allowed`}
                     >

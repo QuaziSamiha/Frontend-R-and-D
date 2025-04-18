@@ -94,13 +94,6 @@ const DateInput = <T extends FieldValues>({
           </div>
         )}
       />
-      {/* {errors[name] && !disabled && (
-        <p className="text-red-500 text-sm pl-2">
-          {typeof errors[name]?.message === "string"
-            ? errors[name]?.message
-            : ""}
-        </p>
-      )} */}
     </div>
   );
 };
