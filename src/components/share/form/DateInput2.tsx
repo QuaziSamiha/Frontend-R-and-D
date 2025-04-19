@@ -1,7 +1,6 @@
 import { CalendarIcon } from "lucide-react";
-import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { format } from "date-fns";
+import { format, isBefore, startOfDay } from "date-fns";
 import { Controller, FieldValues, Path, PathValue } from "react-hook-form";
 import { IDateInput } from "@/types/form/form.types";
 // ======== IMPORTING SHADCN UI COMPONENTS ============
@@ -19,31 +18,20 @@ const DateInput = <T extends FieldValues>({
   name,
   control,
   errors,
-  dateFormat = "dd MMM, yy",
-  setValue,
   trigger,
   isRequired,
   disabled,
   defaultValue,
   requiredMessage = "Date is required.",
 }: IDateInput<T>) => {
-  const [, setDate] = useState<Date>();
-  const handleDateSelect = (selectedDate: Date | undefined) => {
-    if (selectedDate) {
-      const formattedDate = format(selectedDate, dateFormat);
-      setDate(selectedDate);
-      if (setValue) {
-        setValue(
-          name as Path<T>,
-          formattedDate as unknown as PathValue<T, Path<T>>,
-          { shouldValidate: true }
-        );
-      }
-      if (trigger) {
-        trigger(name as Path<T>);
-      }
-    }
+  // Get today's date at the start of the day for comparison
+  const today = startOfDay(new Date());
+
+  // Function to disable past dates
+  const disablePastDates = (date: Date) => {
+    return isBefore(date, today);
   };
+
   return (
     <div className="flex flex-col gap-3 w-full">
       <label className="text-blackSecondary text-base font-medium pl-2">
@@ -54,37 +42,38 @@ const DateInput = <T extends FieldValues>({
       <Controller
         name={name as Path<T>}
         control={control}
-        // defaultValue={defaultValue}
         defaultValue={defaultValue as PathValue<T, Path<T>>}
         rules={{ required: requiredMessage }}
-        // rules={{ required: "Date is required" }}
         render={({ field }) => (
-          <div className="flex flex-col gap-2">
+          <div className="relative flex flex-col gap-2">
             <Popover>
               <PopoverTrigger asChild className="py-5">
                 <Button
-                  variant={"outline"}
+                  variant="outline"
                   className={cn(
                     "justify-start text-left font-normal bg-whiteSecondary cursor-pointer",
                     !field.value && "text-muted-foreground"
                   )}
-                  disabled={disabled}
-                  type="button"
                 >
-                  <CalendarIcon />
+                  <CalendarIcon className="mr-2 h-4 w-4" />
                   {field.value ? (
-                    format(field.value, "dd MMM yy")
+                    format(new Date(field.value), "PP")
                   ) : (
                     <span>{placeholderText}</span>
                   )}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto bg-whiteSecondary pointer-events-auto">
+              <PopoverContent className="w-auto p-0 bg-whiteSecondary ">
                 <Calendar
                   mode="single"
-                  selected={field.value}
-                  onSelect={handleDateSelect}
+                  selected={field.value ? new Date(field.value) : undefined}
+                  onSelect={(date) => {
+                    field.onChange(date ? format(date, "yyyy-MM-dd") : "");
+                    trigger(name as Path<T>);
+                  }}
+                  disabled={disablePastDates}
                   initialFocus
+                  fromDate={new Date()} // Only allow dates from today onwards
                 />
               </PopoverContent>
             </Popover>
@@ -95,6 +84,9 @@ const DateInput = <T extends FieldValues>({
                   : ""}
               </p>
             )}
+            {/* <p className="text-xs text-gray-500 mt-1">
+              Date must be in the future
+            </p> */}
           </div>
         )}
       />

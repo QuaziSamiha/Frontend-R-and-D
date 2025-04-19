@@ -133,7 +133,7 @@ export interface IDateInput<T extends FieldValues> {
   name: string;
   errors: FieldErrors<T>;
   control: Control<T>;
-  setValue: UseFormSetValue<T>;
+  setValue?: UseFormSetValue<T>;
   trigger: UseFormTrigger<T>;
   isRequired?: boolean;
   dateFormat?: string;

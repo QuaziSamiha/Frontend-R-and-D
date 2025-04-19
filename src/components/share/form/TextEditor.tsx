@@ -62,8 +62,7 @@ export default function TextEditor<T extends FieldValues>({
         modules={modules}
         formats={formats}
         placeholder={placeholderText}
-        className="overflow-hidden break-words"
-        // className="border border-red-500 rounded-md bg-whiteSecondary resize-none text-editor"
+        className="border border-red-500 rounded-md bg-whiteSecondary resize-none text-editor"
       />
       {fieldState?.error && !disabled && (
         <p className="text-red-500 text-sm pl-2 -mt-1">
