@@ -2,7 +2,8 @@ import { SelectField } from "@/components/share/form";
 import InputField from "@/components/share/form/InputField";
 import QuantityField from "@/components/share/form/QuantityField";
 import TextArea from "@/components/share/form/TextArea";
-import TextEditor from "@/components/share/form/TextEditor";
+// import TextEditor from "@/components/share/form/TextEditor";
+import { TextEditor2 } from "@/components/share/form/TextEditor2";
 import { ISelectOption } from "@/types/form/form.types";
 import { useFormContext } from "react-hook-form";
 
@@ -87,7 +88,14 @@ export default function ItemForm({ index }: IProps) {
         />
       </div>
 
-      <TextEditor
+      {/* <TextEditor
+        labelName="Description"
+        placeholderText="Write item description..."
+        name={`items.${index}.itemDescription`}
+        control={control}
+      /> */}
+
+      <TextEditor2
         labelName="Description"
         placeholderText="Write item description..."
         name={`items.${index}.itemDescription`}
