@@ -13,8 +13,10 @@ import Approve from "./Approve";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 // import { toast } from "react-toastify";
 export default function Dashboard() {
@@ -78,14 +80,20 @@ export default function Dashboard() {
                 refetch={refetch}
               /> */}
             </CustomDialog>
-            <Dialog>
-              <DialogContent className="bg-white sm:max-w-[80vw]">
-                <DialogHeader>
-                  <DialogTitle>hi</DialogTitle>
-                </DialogHeader>
-                <div>approve</div>
-              </DialogContent>
-            </Dialog>
+            <div className="border border-red-500 p-12">
+              <Dialog>
+                <DialogTrigger>Open</DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Are you absolutely sure?</DialogTitle>
+                    <DialogDescription>
+                      This action cannot be undone. This will permanently delete
+                      your account and remove your data from our servers.
+                    </DialogDescription>
+                  </DialogHeader>
+                </DialogContent>
+              </Dialog>
+            </div>
             <div>hell</div>
           </div>
         </div>
