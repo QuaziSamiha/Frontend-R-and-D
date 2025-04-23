@@ -1,29 +1,18 @@
 "use client";
 
-// import { Button } from "@/components/ui/button";
-// import { useState } from "react";
-// import { getUsers } from "@/api/users";
 import { getUserInfo } from "@/services/auth.service";
 import Information from "./Information";
 import AllRequisitions from "./AllRequisitions";
 import Message from "./Message";
-import CustomDialog from "@/components/share/dialog/CustomDialog";
+import DialogContainer from "@/components/share/dialog/DialogContainer";
+import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
+import DialogButton from "@/components/share/button/DialogButton";
 import { useState } from "react";
-import Approve from "./Approve";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-// import { toast } from "react-toastify";
-export default function Dashboard() {
-  const [approveModalOpen, setApproveModalOpen] = useState(false);
 
+export default function Dashboard() {
   const { email } = (getUserInfo() as { email?: string }) || {};
   console.log(email);
+  const [openModal, setOpenModal] = useState<boolean>();
   // const [loading, setLoading] = useState(false);
 
   // const fetchUsers = async () => {
@@ -39,62 +28,45 @@ export default function Dashboard() {
   //     setLoading(false);
   //   }
   // };
+  const handleConfirmRequisition = () => {
+    setOpenModal(false);
+  };
+  const handleCancelRequisition = () => {
+    setOpenModal(false);
+  };
 
   return (
     <div className="min-h-fit py-12 bg-white rounded-xl">
       <div className="flex flex-col gap-12">
         <div className="border-b border-greyAltTernary pb-8">
           <div className="flex items-center justify-between px-12">
-            <p className="text-2xl font-semibold text-blackSecondary">
+            <p className="text-2xl font-bold text-blackSecondary">
               Product Requisition
             </p>
-            {/* <Button className="bg-blue-600 hover:bg-blue-700">
-              <span className="mr-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-check-circle"
-                >
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                  <polyline points="22 4 12 14.01 9 11.01" />
-                </svg>
-              </span>
-              Approve
-            </Button> */}
-            <CustomDialog
-              open={approveModalOpen}
-              onOpenChange={setApproveModalOpen}
-              title="hi approve"
-            >
-              <Approve setApproveModalOpen={setApproveModalOpen} />
-              {/* <div></div> */}
-              {/* <EditAdminUser
-                setEditModalOpen={setEditModalOpen}
-                refetch={refetch}
-              /> */}
-            </CustomDialog>
-            <div className="border border-red-500 p-12">
-              <Dialog>
-                <DialogTrigger>Open</DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Are you absolutely sure?</DialogTitle>
-                    <DialogDescription>
-                      This action cannot be undone. This will permanently delete
-                      your account and remove your data from our servers.
-                    </DialogDescription>
-                  </DialogHeader>
-                </DialogContent>
-              </Dialog>
+            <div className="">
+              <DialogContainer
+                buttonLabel="Approve"
+                ButtonIcon={IoCheckmarkDoneCircleSharp}
+                dialogTitle="Are You Sure?"
+              >
+                <div className="flex flex-col gap-4">
+                  <div>
+                    <p className="text-greyAltSecondary py-8">
+                      Are you sure approve this requisition
+                    </p>
+                  </div>
+                  <div className="flex justify-end gap-3 pt-4 border-t border-greyAltPrimary">
+                    <DialogButton
+                      buttonLabel="Cancel"
+                      backgroundColor="white"
+                      textColor="blackSecondary"
+                      borderColor="blackSecondary"
+                    />
+                    <DialogButton buttonLabel="Confirm" />
+                  </div>
+                </div>
+              </DialogContainer>
             </div>
-            <div>hell</div>
           </div>
         </div>
         <div className="flex flex-col gap-12 px-12">
