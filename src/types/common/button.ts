@@ -1,16 +1,9 @@
-import { ReactNode } from "react";
 import { IconType } from "react-icons";
 
-export interface IDialogContainer {
+export interface ISecondaryButton {
   buttonLabel: string;
   ButtonIcon?: IconType;
-  dialogTitle?: string;
-  children: ReactNode;
-}
-
-export interface IDialogButton {
-  buttonLabel: string;
-  ButtonIcon?: IconType;
+  onClickFunction?: () => void;
   borderColor?: string;
   hoverBorderColor?: string;
   backgroundColor?: string;

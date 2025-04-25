@@ -6,12 +6,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { IDialogContainer } from "@/types/common/dialogContainer";
+import { IDialogContainer } from "@/types/common/dialog";
 
 const DialogContainer = ({
   buttonLabel,
   ButtonIcon,
   dialogTitle,
+  dialogWidth = "w-[80vw]",
   children,
 }: IDialogContainer) => {
   return (
@@ -21,7 +22,7 @@ const DialogContainer = ({
           {ButtonIcon && <ButtonIcon size={24} />}
           {buttonLabel}
         </DialogTrigger>
-        <DialogContent className="w-[80vw]">
+        <DialogContent className={`${dialogWidth}`}>
           <DialogHeader>
             <DialogTitle>{dialogTitle}</DialogTitle>
             <DialogDescription>{children}</DialogDescription>

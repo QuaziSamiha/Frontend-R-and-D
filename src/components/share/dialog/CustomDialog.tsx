@@ -4,23 +4,18 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-
-interface CustomDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  title: string;
-  children: React.ReactNode;
-}
+import { ICustomDialog } from "@/types/common/dialog";
 
 export default function CustomDialog({
   open,
   onOpenChange,
   title,
   children,
-}: CustomDialogProps) {
+  dialogWidth = "sm:max-w-[80vw]",
+}: ICustomDialog) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-white sm:max-w-[80vw]">
+      <DialogContent className={`bg-white ${dialogWidth}`}>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
