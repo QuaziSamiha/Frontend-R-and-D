@@ -76,13 +76,15 @@ const Information = () => {
                 open={openModal}
                 onOpenChange={setOpenModal}
                 dialogWidth="w-[40vw]"
+                dialogHeight="h-[80vh]"
               >
                 <div>
                   <Image
-                    src="/public/images/modal-img.PNG"
+                    src="/images/modal-img.PNG"
                     alt=""
                     height={500}
                     width={200}
+                    className="w-full h-full"
                   />
                 </div>
               </CustomDialog>

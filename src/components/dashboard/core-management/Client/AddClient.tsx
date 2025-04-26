@@ -46,7 +46,7 @@ export default function AddClient({ setOpen, refetch }: IAddComponentProps) {
             labelName="Name"
             placeholderText="Enter client name"
             name="name"
-            errors={errors}
+            // errors={errors}
             register={register}
             isRequired
           />
@@ -56,7 +56,7 @@ export default function AddClient({ setOpen, refetch }: IAddComponentProps) {
             labelName="Email"
             placeholderText="Enter your email"
             name="email"
-            errors={errors}
+            // errors={errors}
             register={register}
             isRequired
           />
@@ -66,7 +66,7 @@ export default function AddClient({ setOpen, refetch }: IAddComponentProps) {
             labelName="Phone number"
             placeholderText="01700000000"
             name="phone"
-            errors={errors}
+            // errors={errors}
             register={register}
             isRequired
           />

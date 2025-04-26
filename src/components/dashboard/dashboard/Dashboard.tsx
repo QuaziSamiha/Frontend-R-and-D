@@ -3,7 +3,7 @@
 // import { getUserInfo } from "@/services/auth.service";
 import Information from "./Information";
 import AllRequisitions from "./AllRequisitions";
-import Message from "./Message";
+import Message from "./message/Message";
 import Approve from "./Approve";
 
 export default function Dashboard() {

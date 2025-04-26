@@ -12,10 +12,11 @@ export default function CustomDialog({
   title,
   children,
   dialogWidth = "sm:max-w-[80vw]",
+  dialogHeight,
 }: ICustomDialog) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className={`bg-white ${dialogWidth}`}>
+      <DialogContent className={`bg-white ${dialogWidth} ${dialogHeight}`}>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>

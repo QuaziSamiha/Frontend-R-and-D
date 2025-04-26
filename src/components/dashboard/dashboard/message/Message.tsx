@@ -1,20 +1,35 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { ImageIcon, PaperclipIcon, SendIcon } from "lucide-react";
+import TextArea from "@/components/share/form/TextArea";
+// import { Button } from "@/components/ui/button";
+// import { Card, CardContent } from "@/components/ui/card";
+// import { Textarea } from "@/components/ui/textarea";
+// import { ImageIcon, PaperclipIcon, SendIcon } from "lucide-react";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const Message = () => {
   const [message, setMessage] = useState("");
-
+  const { control, trigger } = useForm();
   const handleSendMessage = () => {
     console.log("Sending message:", message);
     setMessage("");
   };
   return (
-    <div>
-      <Card className="border-gray-200">
+    <div className="rounded-lg border border-greyAltTernary w-2/3 max-md:w-full">
+      <form action="">
+        <div className="p-4 rounded-lg border border-greyAltTernary">
+          <TextArea
+            placeholderText="Ask whatever you want..."
+            name="sendMsg"
+            control={control}
+            trigger={trigger}
+          />
+          <div>
+
+          </div>
+        </div>
+      </form>
+      {/* <Card className="border-gray-200">
         <CardContent className="p-0">
           <Textarea
             placeholder="Ask whatever you want..."
@@ -32,14 +47,6 @@ const Message = () => {
                 <PaperclipIcon className="h-5 w-5 mr-1" />
                 Attachment
               </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-gray-500 hover:text-gray-700"
-              >
-                <ImageIcon className="h-5 w-5 mr-1" />
-                Gallery
-              </Button>
             </div>
             <Button
               onClick={handleSendMessage}
@@ -50,7 +57,7 @@ const Message = () => {
             </Button>
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
     </div>
   );
 };

@@ -15,4 +15,5 @@ export interface ICustomDialog {
   title?: string;
   children: React.ReactNode;
   dialogWidth?: string;
+  dialogHeight?: string;
 }
