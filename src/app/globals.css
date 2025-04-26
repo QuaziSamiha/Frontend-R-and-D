@@ -32,6 +32,7 @@
   --color-greyAltTernary: #eff0ef;
   --color-greyMain: #e9ecef;
   --color-charcaolGray: #363739;
+  --color-charcaolGrayPrimary: #cdcdcd;
   /* ================= BLUE COLOR ============ */
   --color-lightBlue: #e4f3ff;
   --color-lightAltBlue: #0d5fb5;
@@ -39,7 +40,8 @@
   --color-violetBlue: #6e81bb;
   --color-primaryBlue: #0d2c6c;
   /* ================= GREEN COLOR ============ */
-  --color-greenPrimary: #00A88E;
+  --color-greenPrimary: #00a88e;
+  --color-redPrimary: #ee485c;
   --border-radius: 12px;
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }

@@ -26,7 +26,9 @@ const Approve = () => {
                   buttonLabel="Cancel"
                   backgroundColor="white"
                   textColor="blackSecondary"
+                  hoverTextColor="blackSecondary"
                   borderColor="blackSecondary"
+                  hoverBorderColor="blackSecondary"
                 />
                 <SecondaryButton buttonLabel="Confirm" />
               </div>

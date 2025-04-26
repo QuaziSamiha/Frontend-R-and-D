@@ -12,7 +12,7 @@ export interface IDialogContainer {
 export interface ICustomDialog {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  title: string;
+  title?: string;
   children: React.ReactNode;
   dialogWidth?: string;
 }
