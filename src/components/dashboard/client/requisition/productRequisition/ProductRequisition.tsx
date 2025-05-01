@@ -4,12 +4,12 @@ import { useState } from "react";
 import { CheckCircle } from "lucide-react";
 import RequisitionClientOverview from "./RequisitionClientOverview";
 import { requisition } from "./data";
-import FilePreview from "@/components/share/dialog/FilePreview";
-import { AllRequisition } from "./AllRequisition";
 import ChatInterface from "@/components/share/message/ChatInterface";
 import BlueButton from "@/components/share/button/BlueButton";
 import CustomDialog from "@/components/share/dialog/CustomDialog";
 import GreyButton from "@/components/share/button/GreyButton";
+import FilePreview from "./FilePreview";
+import { DataTable } from "@/components/share/table/DataTable";
 
 const ProductRequisition = () => {
   const [isApproved, setIsApproved] = useState(false);
@@ -30,7 +30,7 @@ const ProductRequisition = () => {
   return (
     <div className="max-w-7xl mx-auto w-full">
       <main className="px-4 sm:px-6 lg:px-8 py-6">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div className="flex flex-col gap-16 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           {/* ============ INFO, APPROVAL, FILE PREVIEW ==================== */}
           <section className="flex flex-col gap-8">
             {/* ======== BUTTON & STATIC TITLE ========= */}
@@ -49,13 +49,13 @@ const ProductRequisition = () => {
                     title="Are You Sure?"
                     open={showConfirmation}
                     onOpenChange={setShowConfirmation}
-                    dialogWidth="w-[80vw]"
+                    dialogWidth="w-[25vw]"
                   >
                     <div className="flex flex-col gap-4">
-                      <p className="border-y border-greyAltTernary text-greyPrimary py-6">
+                      <p className="px-6 border-y border-greyAltTernary text-greyPrimary py-6">
                         Are you sure approve for this requisition?
                       </p>
-                      <div className="flex justify-end gap-3">
+                      <div className="flex justify-end gap-3 px-6 mb-3">
                         <GreyButton
                           buttonLabel="Cancel"
                           onClickFunction={cancelApproval}
@@ -78,7 +78,7 @@ const ProductRequisition = () => {
             {/* ============== REQUISITION & CLIENT BASIC INFORMATION ============= */}
             <RequisitionClientOverview requisition={requisition} />
             {/* ================ FILE PREVIEW ============== */}
-            <div className="flex flex-wrap gap-4 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-1/2">
               {requisition.files.map((file, index) => (
                 <FilePreview
                   key={index}
@@ -88,16 +88,8 @@ const ProductRequisition = () => {
               ))}
             </div>
           </section>
-          <section>
-            <AllRequisition
-              data={requisition.items}
-              caption="A list of your recent invoices."
-              footerTotalKey="totalAmount"
-            />
-          </section>
-          <section>
-            <ChatInterface />
-          </section>
+          <DataTable data={requisition.items} />
+          <ChatInterface />
         </div>
       </main>
     </div>

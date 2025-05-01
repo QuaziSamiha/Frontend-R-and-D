@@ -4,7 +4,7 @@ import type React from "react";
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Paperclip, ImageIcon, Send } from "lucide-react";
+import { Paperclip, Send } from "lucide-react";
 
 interface Message {
   id: number;
@@ -58,8 +58,8 @@ export default function ChatInterface() {
   };
 
   return (
-    <div className="border rounded-lg overflow-hidden">
-      <div className="bg-gray-50 p-3 border-b">
+    <div className="border border-gray-200 rounded-lg overflow-hidden">
+      <div className="bg-gray-50 p-3 border-b border-gray-200">
         <h3 className="font-medium">Discussion</h3>
       </div>
       <div className="p-4 max-h-80 overflow-y-auto">
@@ -84,7 +84,7 @@ export default function ChatInterface() {
           ))}
         </div>
       </div>
-      <div className="border-t p-3">
+      <div className="border-t border-gray-200 p-3">
         <div className="flex items-end gap-2">
           <textarea
             className="flex-1 border rounded-md p-2 min-h-[40px] max-h-32 resize-none focus:outline-none focus:ring-1 focus:ring-blue-500"
@@ -101,19 +101,13 @@ export default function ChatInterface() {
             >
               <Paperclip className="h-5 w-5 text-gray-500" />
             </Button>
+
             <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full h-10 w-10"
-            >
-              <ImageIcon className="h-5 w-5 text-gray-500" />
-            </Button>
-            <Button
-              className="bg-blue-600 hover:bg-blue-700 rounded-full h-10 px-4 flex items-center"
+              className="bg-lightAltBlue hover:bg-darkBlue cursor-pointer rounded-full h-10 px-6 flex items-center"
               onClick={handleSendMessage}
             >
               Send message
-              <Send className="ml-2 h-4 w-4" />
+              <Send className="h-4 w-4" />
             </Button>
           </div>
         </div>
