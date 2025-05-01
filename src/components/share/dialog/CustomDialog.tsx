@@ -18,7 +18,9 @@ export default function CustomDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className={`bg-white ${dialogWidth} ${dialogHeight}`}>
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
+          <DialogTitle className="text-2xl text-blackSecondary font-bold">
+            {title}
+          </DialogTitle>
         </DialogHeader>
         {children}
       </DialogContent>

@@ -16,7 +16,7 @@ const DialogContainer = ({
   children,
 }: IDialogContainer) => {
   return (
-    <div className="w-full">
+    <>
       <Dialog>
         <DialogTrigger className="flex items-center justify-center gap-2 px-6 py-2.5 font-medium border border-lightAltBlue bg-lightAltBlue text-white rounded-md hover:bg-white hover:text-lightAltBlue hover:border hover:border-lightAltBlue transition duration-300 cursor-pointer">
           {ButtonIcon && <ButtonIcon size={24} />}
@@ -29,7 +29,7 @@ const DialogContainer = ({
           </DialogHeader>
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   );
 };
 
