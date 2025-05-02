@@ -37,6 +37,11 @@ export function DashboardSidebar({ children }: { children: React.ReactNode }) {
       icon: IoNewspaperOutline,
     },
     {
+      label: "Send Quotation",
+      href: "/requisition/send-quotation",
+      icon: IoNewspaperOutline,
+    },
+    {
       label: "Control Unit",
       href: "/control-unit",
       icon: AiOutlineControl,

@@ -27,6 +27,12 @@ export interface IGenericTableProps {
 export interface EditDataProps {
   name: string;
 }
+export interface RequisitionDataProps {
+  id: string;
+  name: string;
+  model: string;
+  quantity: string;
+}
 
 export type EditCoreModuleProps = {
   name: string;
