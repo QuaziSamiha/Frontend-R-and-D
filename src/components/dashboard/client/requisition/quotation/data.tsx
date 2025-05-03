@@ -81,3 +81,11 @@ export const getRequisitionColumns = (
     ),
   },
 ];
+
+export const categoryOptions = [
+  { id: "category-1", label: "Technology", value: "technology" },
+  { id: "category-2", label: "Health & Fitness", value: "health" },
+  { id: "category-3", label: "Business", value: "business" },
+  { id: "category-4", label: "Entertainment", value: "entertainment" },
+  { id: "category-5", label: "Science", value: "science" },
+];

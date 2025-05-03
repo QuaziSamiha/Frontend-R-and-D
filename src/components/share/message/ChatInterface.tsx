@@ -5,6 +5,9 @@ import type React from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Paperclip, Send } from "lucide-react";
+import { SingleFile } from "../form/SingleFile";
+import { useForm } from "react-hook-form";
+import TextArea from "../form/TextArea";
 
 interface Message {
   id: number;
@@ -57,6 +60,8 @@ export default function ChatInterface() {
     }
   };
 
+  const { control, setValue } = useForm();
+
   return (
     <div className="border border-gray-200 rounded-lg overflow-hidden">
       <div className="bg-gray-50 p-3 border-b border-gray-200">
@@ -87,20 +92,31 @@ export default function ChatInterface() {
       <div className="border-t border-gray-200 p-3">
         <div className="flex items-end gap-2">
           <textarea
-            className="flex-1 border rounded-md p-2 min-h-[40px] max-h-32 resize-none focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="flex-1 border border-gray-200 rounded-md p-2 min-h-[40px] max-h-32 resize-none focus:outline-none focus:ring-1 focus:ring-blue-500"
             placeholder="Ask whatever you want..."
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             onKeyDown={handleKeyPress}
           />
-          <div className="flex gap-2">
-            <Button
+          {/* <TextArea
+             placeholderText="Write remark"
+            name="remark"
+            control={control}
+          /> */}
+          <div className="flex items-end">
+            {/* <Button
               variant="ghost"
               size="icon"
               className="rounded-full h-10 w-10"
             >
               <Paperclip className="h-5 w-5 text-gray-500" />
-            </Button>
+            </Button> */}
+            <SingleFile
+              name=""
+              accept="pdf"
+              control={control}
+              setValue={setValue}
+            />
 
             <Button
               className="bg-lightAltBlue hover:bg-darkBlue cursor-pointer rounded-full h-10 px-6 flex items-center"
