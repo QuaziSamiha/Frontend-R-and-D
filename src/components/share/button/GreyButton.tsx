@@ -10,6 +10,7 @@ interface IButton {
   hoverBackgroundColor?: string;
   textColor?: string;
   hoverTextColor?: string;
+  buttonType?: "button" | "submit" | "reset";
 }
 
 export default function GreyButton({
@@ -22,9 +23,11 @@ export default function GreyButton({
   hoverBackgroundColor = "hover:bg-gray-100",
   textColor = "gray-600",
   hoverTextColor = "hover:text-gray-800",
+  buttonType = "button",
 }: IButton) {
   return (
     <button
+      type={buttonType}
       onClick={onClickFunction}
       className={`flex items-center gap-2 font-medium px-6 py-2.5 border border-${borderColor} bg-${backgroundColor} text-${textColor} rounded-md ${hoverBackgroundColor} ${hoverTextColor} hover:border hover:border-${hoverBorderColor} cursor-pointer`}
     >

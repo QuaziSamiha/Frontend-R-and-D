@@ -16,10 +16,23 @@ import { RequisitionDataProps } from "@/types/user/user.types";
 import TableContent from "@/components/share/table/TableContent";
 import CustomDialog from "@/components/share/dialog/CustomDialog";
 import { TbSend } from "react-icons/tb";
-import { useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import SubmitButton from "@/components/share/form/SubmitButton";
 import GreyButton from "@/components/share/button/GreyButton";
 import { CheckboxGroup } from "@/components/share/form/CheckboxField";
+import TextArea from "@/components/share/form/TextArea";
+import DateInput from "@/components/share/form/DateInput2";
+import BlueButton from "@/components/share/button/BlueButton";
+
+interface IFormInputs {
+  supplier: {
+    id: string;
+    label: string;
+    value: string;
+  }[];
+  remark: string;
+  lasDate: string;
+}
 
 // Sample options for the checkbox groups
 const categoryOptions = [
@@ -47,22 +60,34 @@ export default function SendQuotation() {
     setSupplierModalOpen(true);
   };
 
-  const methods = useForm();
+  const methods = useForm<IFormInputs>();
   const {
     control,
     trigger,
     formState: { errors },
     handleSubmit,
   } = methods;
-  const onSupplierSubmit = (data: unknown) => {
-    console.log(data);
+
+  // const onSupplierSubmit: SubmitHandler<ISupplierForm> = (data) => {
+  //   console.log(data);
+  //   setDeadlineModalOpen(true);
+  //   setSupplierModalOpen(false);
+  // };
+
+  // const onDeadlineSubmit: SubmitHandler<IDeadlineForm> = (data) => {
+  //   console.log(data);
+  //   setDeadlineModalOpen(false);
+  // };
+
+  const handleSupplierSubmit = (e: React.MouseEvent) => {
+    // e.preventDefault(); // Prevent form submission
+    // e.stopPropagation(); // Stop event bubbling
     setDeadlineModalOpen(true);
     setSupplierModalOpen(false);
   };
 
-  const onDeadlineSubmit = (data: unknown) => {
+  const onSubmit: SubmitHandler<IFormInputs> = (data) => {
     console.log(data);
-    setDeadlineModalOpen(false);
   };
 
   const columns = getRequisitionColumns(handleSendSingleQuotation);
@@ -108,10 +133,74 @@ export default function SendQuotation() {
         dialogWidth="w-[50vw]"
         title="Select Suppliers"
       >
-        <form onSubmit={handleSubmit(onSupplierSubmit)}>
-          <div className="border-y border-gray-300 py-4 px-6">
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="space-y-4">
+              <CheckboxGroup
+                name="supplier"
+                control={control}
+                options={categoryOptions}
+                description="Select suppliers"
+                errors={errors}
+                required
+                trigger={trigger}
+              />
+              <BlueButton
+                buttonLabel="Next"
+                onClickFunction={() => handleSupplierSubmit}
+                // type="button" // Important: prevent form submission
+              />
+            </div>
+          </form>
+        </FormProvider>
+      </CustomDialog>
+
+      {/* Deadline Dialog - Separate from supplier dialog */}
+      <CustomDialog
+        open={deadlineModalOpen}
+        onOpenChange={setDeadlineModalOpen}
+        dialogWidth="w-[30vw]"
+        title="Deadline & Comment"
+      >
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="border-y border-gray-300 py-4 px-6 space-y-4">
+            <DateInput
+              labelName="Last Date"
+              name="lasDate"
+              placeholderText="dd/mm/yyyy"
+              errors={errors}
+              control={control}
+              trigger={trigger}
+              isRequired
+              requiredMessage="Date is required."
+            />
+            <TextArea
+              labelName="Remark"
+              placeholderText="Write remark"
+              name="remark"
+              control={control}
+            />
+          </div>
+          <div className="flex justify-end items-center gap-3 px-6 py-4">
+            <GreyButton
+              buttonLabel="Cancel"
+              onClickFunction={() => setDeadlineModalOpen(false)}
+              // type="button"
+            />
+            <SubmitButton buttonWidth="w-fit" submitTitle="Send" />
+          </div>
+        </form>
+      </CustomDialog>
+      {/* <CustomDialog
+        open={supplierModalOpen}
+        onOpenChange={setSupplierModalOpen}
+        dialogWidth="w-[50vw]"
+        title="Select Suppliers"
+      >
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <CheckboxGroup
-              name="categories"
+              name="supplier"
               control={control}
               options={categoryOptions}
               description="Select categories youre interested in"
@@ -119,30 +208,46 @@ export default function SendQuotation() {
               required
               trigger={trigger}
             />
-          </div>
-          <div className="flex justify-end px-6 py-4">
-            <SubmitButton buttonWidth="w-fit" />
-          </div>
-        </form>
-      </CustomDialog>
-
-      <CustomDialog
-        open={deadlineModalOpen}
-        onOpenChange={setDeadlineModalOpen}
-        dialogWidth="w-[30vw]"
-        title="Deadline & Comment"
-      >
-        <form onSubmit={handleSubmit(onDeadlineSubmit)}>
-          <div className="border-y border-gray-300 py-4 px-6"></div>
-          <div className="flex justify-end items-center gap-3 px-6 py-4">
-            <GreyButton
-              buttonLabel="Cancel"
-              onClickFunction={() => setDeadlineModalOpen(false)}
+            <BlueButton
+              buttonLabel="Submit"
+              onClickFunction={handleSupplierSubmit}
             />
-            <SubmitButton buttonWidth="w-fit" submitTitle="Send" />
-          </div>
-        </form>
-      </CustomDialog>
+
+            <CustomDialog
+              open={deadlineModalOpen}
+              onOpenChange={setDeadlineModalOpen}
+              dialogWidth="w-[30vw]"
+              title="Deadline & Comment"
+            >
+              <div className="border-y border-gray-300 py-4 px-6">
+                <DateInput
+                  labelName="Last Date"
+                  name="lasDate"
+                  placeholderText="dd/mm/yyyy"
+                  errors={errors}
+                  control={control}
+                  trigger={trigger}
+                  isRequired
+                  requiredMessage="Date 2 is required."
+                />
+                <TextArea
+                  labelName="Remark"
+                  placeholderText="Write remark"
+                  name="remark"
+                  control={control}
+                />
+              </div>
+              <div className="flex justify-end items-center gap-3 px-6 py-4">
+                <GreyButton
+                  buttonLabel="Cancel"
+                  onClickFunction={() => setDeadlineModalOpen(false)}
+                />
+                <SubmitButton buttonWidth="w-fit" submitTitle="Send" />
+              </div>
+            </CustomDialog>
+          </form>
+        </FormProvider>
+      </CustomDialog> */}
     </section>
   );
 }

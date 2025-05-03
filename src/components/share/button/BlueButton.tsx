@@ -10,6 +10,7 @@ interface IButton {
   hoverBackgroundColor?: string;
   textColor?: string;
   hoverTextColor?: string;
+  buttonType?: "button" | "submit" | "reset";
 }
 
 export default function BlueButton({
@@ -22,9 +23,11 @@ export default function BlueButton({
   hoverBackgroundColor = "white",
   textColor = "white",
   hoverTextColor = "lightAltBlue",
+  buttonType = "button",
 }: IButton) {
   return (
     <button
+      type={buttonType}
       onClick={onClickFunction}
       className={`flex items-center gap-2 font-medium px-6 py-2.5 border border-${borderColor} bg-${backgroundColor} text-${textColor} rounded-md hover:bg-${hoverBackgroundColor} hover:text-${hoverTextColor} hover:border hover:border-${hoverBorderColor} cursor-pointer`}
     >
