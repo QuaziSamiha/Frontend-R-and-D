@@ -42,6 +42,11 @@ export function DashboardSidebar({ children }: { children: React.ReactNode }) {
       icon: IoNewspaperOutline,
     },
     {
+      label: "Vendor",
+      href: "/vendor",
+      icon: IoNewspaperOutline,
+    },
+    {
       label: "Control Unit",
       href: "/control-unit",
       icon: AiOutlineControl,
